@@ -1,12 +1,34 @@
 const gameBoard = (function () {
-  let board = ["", "", "", "", "", "", "", "", ""];
+  let board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
+  const possibleWinPositions = [
+    "012",
+    "345",
+    "678",
+    "036",
+    "147",
+    "258",
+    "048",
+    "246",
+  ];
   const getBoard = function () {
     return board;
   };
-  const changeBoard = function (position, symbol) {
-    board[position] = symbol;
+  const changeBoard = function (positionIndex, symbol) {
+    board[positionIndex] = symbol;
   };
-  return { getBoard, changeBoard };
+  const checkWin = function () {
+    for (let index = 0; index < possibleWinPositions.length; index++) {
+      positions = possibleWinPositions[index].split("");
+      if (
+        board[positions[0]] === board[positions[1]] &&
+        board[positions[1]] === board[positions[2]]
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+  return { getBoard, changeBoard, checkWin };
 })();
 
 function Player(name, symbol) {
@@ -19,7 +41,3 @@ function Player(name, symbol) {
   };
   return { name, symbol, getScore, addScore };
 }
-
-// function FlowControl() {
-//   // ga
-// }
