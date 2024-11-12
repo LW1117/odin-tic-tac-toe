@@ -28,7 +28,10 @@ const gameBoard = (function () {
     }
     return false;
   };
-  return { getBoard, updateBoard, checkWin };
+  const reset = function () {
+    board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
+  };
+  return { getBoard, updateBoard, checkWin, reset };
 })();
 
 function Player(name, symbol) {
@@ -42,20 +45,49 @@ function Player(name, symbol) {
   return { name, symbol, getScore, addScore };
 }
 
-function play() {
-  const player1 = new Player("player1", "X");
-  const player2 = new Player("player2", "O");
-  let currentPlayer = 0;
-  const players = [player1, player2];
-  while (true) {
-    position = prompt(`Player ${currentPlayer + 1}\nYour chance`);
-    gameBoard.updateBoard(position, players[currentPlayer].symbol);
+let currentPlayer = 0;
+let gameOver = false;
+
+const player1 = new Player("player1", "X");
+const player2 = new Player("player2", "O");
+
+const players = [player1, player2];
+
+function reset() {
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((square) => {
+    square.innerText = "";
+  });
+  gameBoard.reset();
+  gameOver = false;
+}
+
+function play(square) {
+  if (gameOver) {
+    reset();
+  }
+  if (square.innerText !== "") {
+    alert("Occupied!!\nChoose another option");
+  } else {
+    position = square.id;
+    playerName = players[currentPlayer].name;
+    playerSymbol = players[currentPlayer].symbol;
+    gameBoard.updateBoard(position, playerSymbol);
+    console.log(gameBoard.getBoard());
+    square.innerText = playerSymbol;
+
     if (gameBoard.checkWin()) {
-      alert(`${players[currentPlayer].name} wins!!`);
-      break;
+      winBanner = document.createElement("h2");
+      winBanner.innerText = `${playerName} WINS!!`;
+      winBanner.style.visibility = "visible";
+      document.body.appendChild(winBanner);
+      gameOver = true;
     }
     currentPlayer = (currentPlayer + 1) % 2;
   }
 }
 
-play();
+const squares = document.querySelectorAll(".square");
+squares.forEach((square) => {
+  square.addEventListener("click", () => play(square));
+});

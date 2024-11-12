@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: antiquewhite;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 55px;
+  color: lightblue;
+}
+
+#reset-button {
+  padding: 20px 35px;
+  border-radius: 10px;
+  background-color: lightblue;
+  position: relative;
+  left: 45%;
+  margin-top: 50px;
+}
+
+#main-container {
+  display: grid;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+  padding: 10%;
+}
+
+.square {
+  padding: 15%;
+  height: 10px;
+  border: 1px dashed whitesmoke;
+  background-color: lightblue;
+  color: whitesmoke;
+  text-align: center;
+  font-size: 35px;
+}
+
+.square:hover {
+  background-color: rgb(201, 225, 233);
+}
+
+h2 {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  padding: 50px 0px;
+  background-color: blue;
+  color: whitesmoke;
+  text-align: center;
+  visibility: hidden;
+}
