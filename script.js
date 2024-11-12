@@ -13,7 +13,7 @@ const gameBoard = (function () {
   const getBoard = function () {
     return [...board];
   };
-  const changeBoard = function (positionIndex, symbol) {
+  const updateBoard = function (positionIndex, symbol) {
     board[positionIndex] = symbol;
   };
   const checkWin = function () {
@@ -28,7 +28,7 @@ const gameBoard = (function () {
     }
     return false;
   };
-  return { getBoard, changeBoard, checkWin };
+  return { getBoard, updateBoard, checkWin };
 })();
 
 function Player(name, symbol) {
@@ -41,3 +41,21 @@ function Player(name, symbol) {
   };
   return { name, symbol, getScore, addScore };
 }
+
+function play() {
+  const player1 = new Player("player1", "X");
+  const player2 = new Player("player2", "O");
+  let currentPlayer = 0;
+  const players = [player1, player2];
+  while (true) {
+    position = prompt(`Player ${currentPlayer + 1}\nYour chance`);
+    gameBoard.updateBoard(position, players[currentPlayer].symbol);
+    if (gameBoard.checkWin()) {
+      alert(`${players[currentPlayer].name} wins!!`);
+      break;
+    }
+    currentPlayer = (currentPlayer + 1) % 2;
+  }
+}
+
+play();
