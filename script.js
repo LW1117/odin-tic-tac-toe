@@ -11,7 +11,7 @@ const gameBoard = (function () {
     "246",
   ];
   const getBoard = function () {
-    return board;
+    return [...board];
   };
   const changeBoard = function (positionIndex, symbol) {
     board[positionIndex] = symbol;
